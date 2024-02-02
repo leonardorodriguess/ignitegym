@@ -7,7 +7,7 @@ import {
 import { Loading } from '@components/Loading';
 import { NativeBaseProvider } from 'native-base';
 import { THEME } from '@theme/index';
-import { SignIn } from '@screens/singIn';
+import { Routes } from '@routes/index';
 
 
 export default function App() {
@@ -19,7 +19,7 @@ export default function App() {
         barStyle={'light-content'}
         backgroundColor={'transparent'}
       />
-      {fontsLoaded ? <SignIn /> :<Loading />}
+      {fontsLoaded ? <Routes /> : <Loading />}
     </NativeBaseProvider>
   );
 }
