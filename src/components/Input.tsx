@@ -13,7 +13,9 @@ export function Input({ ...rest }: IInputProps) {
       mb={4}
       placeholder="gray.300"
       _focus={{
-        bg: "gray.700"
+        bg: "gray.700",
+        borderWidth: 1,
+        borderColor: "green.500"
       }}
       {...rest}
     />
