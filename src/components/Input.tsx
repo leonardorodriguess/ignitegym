@@ -12,6 +12,9 @@ export function Input({ ...rest }: IInputProps) {
       fontFamily="body"
       mb={4}
       placeholder="gray.300"
+      _focus={{
+        bg: "gray.700"
+      }}
       {...rest}
     />
   );
