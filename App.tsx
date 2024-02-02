@@ -7,6 +7,7 @@ import {
 import { Loading } from '@components/Loading';
 import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { config } from './config/gluestack-ui.config';
+import { SignIn } from '@screens/SignIn';
 
 
 export default function App() {
@@ -18,7 +19,7 @@ export default function App() {
           barStyle={'light-content'}
           backgroundColor={'transparent'}
         />
-        {fontsLoaded ? <Loading /> : <Loading />}
+        {fontsLoaded ? <SignIn/> : <Loading />}
     </GluestackUIProvider>
   );
 }
