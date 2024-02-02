@@ -1,4 +1,10 @@
-import { Center, Spinner} from '@gluestack-ui/themed';
+// import { Spinner } from '@gluestack-ui/config/build/theme';
+import { 
+  Center,
+  Spinner
+} from '@gluestack-ui/themed';
+import { config } from 'config/gluestack-ui.config';
+// import { Spinner } from 'config/theme';
 
 export function Loading() {
   return (
