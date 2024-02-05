@@ -8,6 +8,7 @@ import { Loading } from '@components/Loading';
 import { NativeBaseProvider } from 'native-base';
 import { THEME } from '@theme/index';
 import { Routes } from '@routes/index';
+import { Home } from '@screens/Home';
 
 
 export default function App() {
@@ -19,7 +20,7 @@ export default function App() {
         barStyle={'light-content'}
         backgroundColor={'transparent'}
       />
-      {fontsLoaded ? <Routes /> : <Loading />}
+      {fontsLoaded ? <Home/> : <Loading />}
     </NativeBaseProvider>
   );
 }
