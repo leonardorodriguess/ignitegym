@@ -43,8 +43,8 @@ export function AppRoutes() {
           backgroundColor: colors.gray[600],
           height: Platform.OS === 'android' ? 'auto' : 96,
           paddingBottom: sizes[10],
-          paddingTop: sizes[6]
-        }
+          paddingTop: sizes[6],
+        },
       }}
     >
       <Screen
@@ -74,7 +74,11 @@ export function AppRoutes() {
           ),
         }}
       />
-      <Screen name="exercise" component={Exercise} options={{ tabBarButton: () => null}}/>
+      <Screen
+        name="exercise"
+        component={Exercise}
+        options={{ tabBarButton: () => null }}
+      />
     </Navigator>
   );
 }
