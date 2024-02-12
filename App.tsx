@@ -8,7 +8,7 @@ import { Loading } from '@components/Loading';
 import { NativeBaseProvider } from 'native-base';
 import { THEME } from '@theme/index';
 import { Routes } from '@routes/index';
-import { Home } from '@screens/Home';
+import { Home } from '@screens/home';
 
 
 export default function App() {
