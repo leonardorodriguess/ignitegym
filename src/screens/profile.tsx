@@ -1,24 +1,36 @@
-import { ScreenHeader } from "@components/ScreenHeader";
-import { UserPhoto } from "@components/UserPhoto";
-import { Center, ScrollView, VStack } from "native-base";
+import { ScreenHeader } from '@components/ScreenHeader';
+import { UserPhoto } from '@components/UserPhoto';
+import { Center, ScrollView, Skeleton, VStack } from 'native-base';
+import { useState } from 'react';
 
-export function Profile () {
+const PHOTO_SIZE = 33;
+
+export function Profile() {
+  const [photoIsLoading, setPhotoIsLoading] = useState(true);
+
   return (
     <VStack flex={1}>
       <ScreenHeader title="Perfil" />
 
       <ScrollView>
         <Center mt={6} px={10}>
-          <UserPhoto 
-            source={{uri: 'http://github.com/leonardorodriguess.png'}}
-            alt="Imagem do usuário"
-            size={33}
-          />
-
+          {photoIsLoading ? (
+            <Skeleton
+              w={PHOTO_SIZE}
+              h={PHOTO_SIZE}
+              rounded={'full'}
+              endColor={'gray.400'}
+              startColor={'gray.500'}
+            />
+          ) : (
+            <UserPhoto
+              size={PHOTO_SIZE}
+              alt="Imagem do usuário"
+              source={{ uri: 'http://github.com/leonardorodriguess.png' }}
+            />
+          )}
         </Center>
       </ScrollView>
-
-
     </VStack>
-  )
+  );
 }
