@@ -1,12 +1,14 @@
+import { useState } from 'react';
+import { Center, ScrollView, Skeleton, Text, VStack } from 'native-base';
+
 import { ScreenHeader } from '@components/ScreenHeader';
 import { UserPhoto } from '@components/UserPhoto';
-import { Center, ScrollView, Skeleton, VStack } from 'native-base';
-import { useState } from 'react';
+import { TouchableOpacity } from 'react-native';
 
 const PHOTO_SIZE = 33;
 
 export function Profile() {
-  const [photoIsLoading, setPhotoIsLoading] = useState(true);
+  const [photoIsLoading, setPhotoIsLoading] = useState(false);
 
   return (
     <VStack flex={1}>
@@ -29,6 +31,12 @@ export function Profile() {
               source={{ uri: 'http://github.com/leonardorodriguess.png' }}
             />
           )}
+
+          <TouchableOpacity>
+            <Text color="green.500" fontWeight={"bold"} fontSize={"md"} mt={2} mb={8}>
+              Alterar foto
+            </Text>
+          </TouchableOpacity>
         </Center>
       </ScrollView>
     </VStack>
