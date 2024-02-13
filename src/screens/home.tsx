@@ -32,6 +32,7 @@ export function Home() {
         horizontal
         my={10}
         maxH={10}
+        minH={10}
         data={groups}
         keyExtractor={(item) => item}
         showsHorizontalScrollIndicator={false}
