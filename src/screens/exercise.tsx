@@ -39,7 +39,7 @@ export function Exercise() {
           alignItems={'center'}
           justifyContent={'space-between'}
         >
-          <Heading color="gray.100" fontSize="lg" flexShrink={1}>
+          <Heading color="gray.100" fontSize="lg" flexShrink={1} fontFamily={"heading"}>
             Puxador frontal
           </Heading>
 
