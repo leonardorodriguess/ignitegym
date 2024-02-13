@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import * as ImagePicker from 'expo-image-picker';
 import {
   Center,
   Heading,
@@ -18,6 +19,15 @@ const PHOTO_SIZE = 33;
 
 export function Profile() {
   const [photoIsLoading, setPhotoIsLoading] = useState(false);
+
+  async function handleUserPhotoSelect () { 
+    await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      quality: 1,
+      aspect: [4,4],
+      allowsEditing: true,
+    });
+  }
 
   return (
     <VStack flex={1}>
@@ -41,7 +51,7 @@ export function Profile() {
             />
           )}
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleUserPhotoSelect}>
             <Text
               color="green.500"
               fontWeight={'bold'}
