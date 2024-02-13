@@ -1,6 +1,6 @@
-import { VStack, Image, Text, Center, Heading, ScrollView } from 'native-base';
-import { useNavigation } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
+import { useNavigation } from '@react-navigation/native';
+import { VStack, Image, Text, Center, Heading, ScrollView } from 'native-base';
 
 import LogoSvg from '@assets/logo.svg';
 import BackgroundImg from '@assets/background.png';
@@ -13,10 +13,14 @@ type FormDataProps = {
   email: string;
   password: string;
   password_confirm: string;
-}
+};
 
 export function SignUp() {
-  const { control, handleSubmit } = useForm<FormDataProps>();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormDataProps>();
   const navigation = useNavigation();
 
   function handleGoBack() {
@@ -62,17 +66,33 @@ export function SignUp() {
           <Controller
             control={control}
             name="name"
+            rules={{
+              required: 'Informe o nome',
+            }}
             render={({ field: { onChange, value } }) => (
-              <Input placeholder="Nome" onChangeText={onChange} value={value} />
+              <Input
+                placeholder="Nome"
+                onChangeText={onChange}
+                value={value}
+                errorMessage={errors.name?.message}
+              />
             )}
           />
 
           <Controller
             control={control}
+            rules={{
+              required: 'Informe o email',
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: 'E-mail inválido',
+              },
+            }}
             name="email"
             render={({ field: { onChange, value } }) => (
               <Input
                 placeholder="Email"
+                errorMessage={errors.email?.message}
                 keyboardType="email-address"
                 autoCapitalize="none"
                 onChangeText={onChange}
@@ -104,12 +124,15 @@ export function SignUp() {
                 onChangeText={onChange}
                 value={value}
                 onSubmitEditing={handleSubmit(handleSingUp)}
-                returnKeyType='send'
+                returnKeyType="send"
               />
             )}
           />
 
-          <Button title="Criar e acessar" onPress={handleSubmit(handleSingUp)}/>
+          <Button
+            title="Criar e acessar"
+            onPress={handleSubmit(handleSingUp)}
+          />
         </Center>
         <Center mt={24}>
           <Button
