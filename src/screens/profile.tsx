@@ -19,14 +19,33 @@ const PHOTO_SIZE = 33;
 
 export function Profile() {
   const [photoIsLoading, setPhotoIsLoading] = useState(false);
+  const [userPhoto, setUserPhoto] = useState('http://github.com/leonardorodriguess.png')
 
-  async function handleUserPhotoSelect () { 
-    await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      quality: 1,
-      aspect: [4,4],
-      allowsEditing: true,
-    });
+  async function handleUserPhotoSelect () {
+    setPhotoIsLoading(true)
+    try { 
+      const photoSelected = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        quality: 1,
+        aspect: [4,4],
+        allowsEditing: true,
+        //base64: true
+      });
+  
+      console.log(photoSelected);
+  
+      if(photoSelected.canceled) return; 
+
+      if(photoSelected.assets[0].uri){
+        setUserPhoto(photoSelected.assets[0].uri);
+      }
+  
+
+    } catch (error){
+      console.log(error)
+    } finally {
+      setPhotoIsLoading(false);
+    }
   }
 
   return (
@@ -47,7 +66,7 @@ export function Profile() {
             <UserPhoto
               size={PHOTO_SIZE}
               alt="Imagem do usuário"
-              source={{ uri: 'http://github.com/leonardorodriguess.png' }}
+              source={{ uri: userPhoto }}
             />
           )}
 
