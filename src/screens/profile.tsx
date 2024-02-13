@@ -6,6 +6,7 @@ import {
   Skeleton,
   Text,
   VStack,
+  useToast,
 } from 'native-base';
 
 import * as FileSystem from 'expo-file-system';
@@ -25,6 +26,8 @@ export function Profile() {
     'http://github.com/leonardorodriguess.png',
   );
 
+  const toast = useToast();
+
   async function handleUserPhotoSelect() {
     setPhotoIsLoading(true);
     try {
@@ -36,8 +39,6 @@ export function Profile() {
         //base64: true
       });
 
-      console.log(photoSelected);
-
       if (photoSelected.canceled) return;
 
       if (photoSelected.assets[0].uri) {
@@ -46,7 +47,11 @@ export function Profile() {
         );
 
         if (photoInfo.exists && photoInfo.size / 1024 / 1024 > 5)
-          return Alert.alert('Essa imagem é muito grande. Escolha uma de até 5MB');
+          return toast.show({
+            placement: 'top',
+            bgColor: 'red.500',
+            title: 'Essa imagem é muito grande. Escolha uma de até 5MB',
+          });
 
         setUserPhoto(photoSelected.assets[0].uri);
       }
