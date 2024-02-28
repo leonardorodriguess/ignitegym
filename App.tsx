@@ -23,7 +23,7 @@ export default function App() {
         barStyle={'light-content'}
         backgroundColor={'transparent'}
       />
-      <AuthContext.Provider value={{ id: '1', name: 'Leonardo'}}>
+      <AuthContext.Provider value={{ user:{id: '1', name: 'Leonardo', email:'leo-feitosa@live.com', avatar:'string' }}}>
         {fontsLoaded ? <Routes/> : <Loading />}
       </AuthContext.Provider>
     </NativeBaseProvider>
