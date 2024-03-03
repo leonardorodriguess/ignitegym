@@ -11,9 +11,6 @@ import BackgroundImg from '@assets/background.png';
 
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
-import axios from 'axios';
-import { Alert } from 'react-native';
-import { AppError } from '@utils/AppError';
 
 type FormDataProps = {
   name: string;

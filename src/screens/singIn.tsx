@@ -1,3 +1,4 @@
+import { useForm, Controller } from 'react-hook-form';
 import { VStack, Image, Text, Center, Heading, ScrollView } from 'native-base';
 
 import { AuthNavigatorRoutesProps } from '@routes/auth.routes';
@@ -9,11 +10,25 @@ import { Input } from '@components/Input';
 import { Button } from '@components/Button';
 import { useNavigation } from '@react-navigation/native';
 
+type FormData = {
+  email: string;
+  password: string;
+};
+
 export function SignIn() {
   const navigation = useNavigation<AuthNavigatorRoutesProps>();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
 
   function handleNewAccount() {
     navigation.navigate('signUp');
+  }
+
+  function handleSingIn({ email, password }: FormData) {
+    console.log(email, password);
   }
 
   return (
@@ -48,14 +63,37 @@ export function SignIn() {
             Acesse sua conta
           </Heading>
 
-          <Input
-            placeholder="Email"
-            keyboardType="email-address"
-            autoCapitalize="none"
+          <Controller
+            control={control}
+            name="email"
+            rules={{ required: 'Informe o e-mail' }}
+            render={({ field: { onChange, value } }) => (
+              <Input
+                placeholder="Email"
+                keyboardType="email-address"
+                onChangeText={onChange}
+                value={value}
+                errorMessage={errors.email?.message}
+                autoCapitalize="none"
+              />
+            )}
           />
-          <Input placeholder="Senha" secureTextEntry />
 
-          <Button title="Acessar" />
+          <Controller
+            control={control}
+            name={'password'}
+            render={({ field: { onChange, value } }) => (
+              <Input
+                value={value}
+                onChangeText={onChange}
+                placeholder="Senha"
+                errorMessage={errors.password?.message}
+                secureTextEntry
+              />
+            )}
+          />
+
+          <Button title="Acessar" onPress={handleSubmit(handleSingIn)} />
         </Center>
 
         <Center mt={24}>
