@@ -30,8 +30,8 @@ export function SignIn() {
     navigation.navigate('signUp');
   }
 
-  function handleSingIn({ email, password }: FormData) {
-    singIn(email, password);
+  async function handleSingIn({ email, password }: FormData) {
+    await singIn(email, password);
   }
 
   return (

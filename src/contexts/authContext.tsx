@@ -1,6 +1,7 @@
 import { ReactNode, createContext, useState } from 'react';
 
 import { UserDTO } from '@dtos/userDTO';
+import { api } from '@services/api';
 
 export type AuthContextDataProps = {
   user: UserDTO;
@@ -16,20 +17,18 @@ type AuthContextProviderProps = {
 };
 
 export function AuthContextProvider({ children }: AuthContextProviderProps) {
-  const [user, setUser] = useState({
-    id: '1',
-    name: 'Leonardo',
-    email: 'leo-feitosa@live.com',
-    avatar: 'string',
-  });
+  const [user, setUser] = useState<UserDTO>({} as UserDTO);
 
-  function singIn(email: string, password: string) {
-    setUser({
-      id: '',
-      name: '',
-      email,
-      avatar: '',
-    });
+  async function singIn(email: string, password: string) {
+    try {
+      const { data } = await api.post('/sessions', { email, password });
+
+      if (data.user) {
+        setUser(data.user);
+      }
+    } catch (error) {
+      throw error;
+    }
   }
 
   return (
