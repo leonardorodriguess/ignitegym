@@ -8,7 +8,7 @@ import {
 
 import { Routes } from '@routes/index';
 
-import { AuthContext } from '@contexts/authContext';
+import { AuthContext, AuthContextProvider } from '@contexts/authContext';
 
 import { THEME } from '@theme/index';
 import { Loading } from '@components/Loading';
@@ -23,9 +23,9 @@ export default function App() {
         barStyle={'light-content'}
         backgroundColor={'transparent'}
       />
-      <AuthContext.Provider value={{ user:{id: '1', name: 'Leonardo', email:'leo-feitosa@live.com', avatar:'string' }}}>
-        {fontsLoaded ? <Routes/> : <Loading />}
-      </AuthContext.Provider>
+      <AuthContextProvider>
+        {fontsLoaded ? <Routes /> : <Loading />}
+      </AuthContextProvider>
     </NativeBaseProvider>
   );
 }
