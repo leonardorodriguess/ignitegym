@@ -1,5 +1,13 @@
 import { useForm, Controller } from 'react-hook-form';
-import { VStack, Image, Text, Center, Heading, ScrollView } from 'native-base';
+import {
+  VStack,
+  Image,
+  Text,
+  Center,
+  Heading,
+  ScrollView,
+  useToast,
+} from 'native-base';
 
 import { AuthNavigatorRoutesProps } from '@routes/auth.routes';
 
@@ -10,6 +18,7 @@ import { Input } from '@components/Input';
 import { Button } from '@components/Button';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '@hooks/useAuth';
+import { AppError } from '@utils/AppError';
 
 type FormData = {
   email: string;
@@ -17,21 +26,36 @@ type FormData = {
 };
 
 export function SignIn() {
+  const { singIn } = useAuth();
   const navigation = useNavigation<AuthNavigatorRoutesProps>();
+  const toast = useToast();
+
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
-  const { singIn } = useAuth();
-
 
   function handleNewAccount() {
     navigation.navigate('signUp');
   }
 
   async function handleSingIn({ email, password }: FormData) {
-    await singIn(email, password);
+    try {
+      await singIn(email, password);
+    } catch (error) {
+      const isAppError = error instanceof AppError;
+
+      const title = isAppError
+        ? error.message
+        : 'Não foi possível entrar. Tente novamente';
+
+      toast.show({
+        title,
+        placement: 'top',
+        bgColor: 'red.500',
+      });
+    }
   }
 
   return (

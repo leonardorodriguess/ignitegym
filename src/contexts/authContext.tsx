@@ -5,7 +5,7 @@ import { api } from '@services/api';
 
 export type AuthContextDataProps = {
   user: UserDTO;
-  singIn(email: string, password: string): void;
+  singIn(email: string, password: string): Promise<void>;
 };
 
 export const AuthContext = createContext<AuthContextDataProps>(
