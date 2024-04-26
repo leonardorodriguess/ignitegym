@@ -2,11 +2,12 @@ import { ReactNode, createContext, useEffect, useState } from 'react';
 
 import { UserDTO } from '@dtos/userDTO';
 import { api } from '@services/api';
-import { storageUserGet, storgeUserSave } from '@storage/storageUser';
+import { storageUserGet, storageUserRemove, storgeUserSave } from '@storage/storageUser';
 
 export type AuthContextDataProps = {
   user: UserDTO;
   isLoadingUserStorageData: boolean;
+  singOut(): Promise<void>;
   singIn(email: string, password: string): Promise<void>;
 };
 
@@ -48,6 +49,20 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     }
   }
 
+
+  async function singOut(){
+    try {
+      setIsLoadingUserStorage(true);
+      setUser({} as UserDTO);
+      await storageUserRemove();
+
+    } catch (error) {
+      throw error; 
+    } finally {
+      setIsLoadingUserStorage(false);
+    }
+  }
+
   useEffect(() => {
     loadUserData();
   }, [])
@@ -57,6 +72,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
         user,
         isLoadingUserStorageData,
         singIn,
+        singOut,
       }}
     >
       {children}
